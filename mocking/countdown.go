@@ -17,7 +17,7 @@ func main() {
 }
 
 func Countdown(out io.Writer, sleeper Sleeper) {
-	for i := range countDownFrom(3) {
+	for i := range countDownFrom(countdownStart) {
 		fmt.Fprintln(out, i)
 		sleeper.Sleep()
 	}
