@@ -1,31 +1,36 @@
 package array
 
-func Sum(numbers []int) (result int) {
-	for _, number := range numbers {
-		result += number
-	}
-	return result
+func Sum(numbers []int) int {
+	add := func(acc, x int) int { return acc + x }
+	return Reduce(numbers, add, 0)
 }
 
-func SumAll(numbersToSum ...[]int) []int {
-	var sums []int
-	for _, numbers := range numbersToSum {
-		sums = append(sums, Sum(numbers))
+func SumAll(numbers ...[]int) []int {
+	sumAll := func(acc, x []int) []int {
+		return append(acc, Sum(x))
 	}
 
-	return sums
+	return Reduce(numbers, sumAll, []int{})
 }
 
 // The tail of a collection is all items in the collection except the first one (the "head").
-func SumAllTails(numbersToSum ...[]int) []int {
-	var sums []int
-	for _, numbers := range numbersToSum {
-		if len(numbers) == 0 {
-			sums = append(sums, 0)
+func SumAllTails(numbers ...[]int) []int {
+	sumTail := func(acc, x []int) []int {
+		if len(x) == 0 {
+			return append(acc, 0)
 		} else {
-			tail := numbers[1:]
-			sums = append(sums, Sum(tail))
+			tail := x[1:]
+			return append(acc, Sum(tail))
 		}
 	}
-	return sums
+
+	return Reduce(numbers, sumTail, []int{})
+}
+
+func Reduce[T any](collection []T, f func(T, T) T, initialValue T) T {
+	var result = initialValue
+	for _, el := range collection {
+		result = f(result, el)
+	}
+	return result
 }
