@@ -17,6 +17,7 @@ func createTempFile(t testing.TB, initialData string) (*os.File, func()) {
 	tmpfile.Write([]byte(initialData))
 
 	removeFile := func() {
+		tmpfile.Close()
 		os.Remove(tmpfile.Name())
 	}
 
@@ -25,7 +26,7 @@ func createTempFile(t testing.TB, initialData string) (*os.File, func()) {
 
 func TestFileSystemStore(t *testing.T) {
 
-	t.Run("league sorted", func(t *testing.T) {
+	t.Run("League sorted", func(t *testing.T) {
 		database, cleanDatabase := createTempFile(t, `[
 			{"Name": "Cleo", "Wins": 10},
 			{"Name": "Chris", "Wins": 33}]`)
