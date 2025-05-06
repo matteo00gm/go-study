@@ -10,15 +10,15 @@ step 4: create the implementations of the {interface_name}Func
 */
 
 //step 1
-type Animale interface {
+type Animal interface {
 	Action()
 }
 
 //step 2
-type AnimaleFunc func()
+type AnimalFunc func()
 
 //step 3
-func (a AnimaleFunc) Action() {
+func (a AnimalFunc) Action() {
 	a()
 }
 
@@ -36,7 +36,7 @@ func fly() {
 }
 
 func main() {
-	AnimaleFunc(run).Action()
-	AnimaleFunc(swim).Action()
-	AnimaleFunc(fly).Action()
+	AnimalFunc(run).Action()
+	AnimalFunc(swim).Action()
+	AnimalFunc(fly).Action()
 }
