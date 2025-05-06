@@ -11,10 +11,9 @@ import (
 
 // CLI helps players through a game of poker.
 type CLI struct {
-	playerStore PlayerStore
-	in          *bufio.Scanner
-	out         io.Writer
-	game        Game
+	in   *bufio.Scanner
+	out  io.Writer
+	game Game
 }
 
 // NewCLI creates a CLI for playing poker.
