@@ -1,7 +1,8 @@
-package poker
+package poker_test
 
 import (
 	"os"
+	poker "tdd/http-server"
 	"testing"
 )
 
@@ -32,15 +33,15 @@ func TestFileSystemStore(t *testing.T) {
 			{"Name": "Chris", "Wins": 33}]`)
 		defer cleanDatabase()
 
-		store, err := NewFileSystemPlayerStore(database)
+		store, err := poker.NewFileSystemPlayerStore(database)
 
 		assertNoError(t, err)
 
 		got := store.GetLeague()
 
-		want := []Player{
-			{"Chris", 33},
-			{"Cleo", 10},
+		want := []poker.Player{
+			{Name: "Chris", Wins: 33},
+			{Name: "Cleo", Wins: 10},
 		}
 
 		assertLeague(t, got, want)
@@ -56,7 +57,7 @@ func TestFileSystemStore(t *testing.T) {
 			{"Name": "Chris", "Wins": 33}]`)
 		defer cleanDatabase()
 
-		store, err := NewFileSystemPlayerStore(database)
+		store, err := poker.NewFileSystemPlayerStore(database)
 
 		assertNoError(t, err)
 
@@ -71,7 +72,7 @@ func TestFileSystemStore(t *testing.T) {
 			{"Name": "Chris", "Wins": 33}]`)
 		defer cleanDatabase()
 
-		store, err := NewFileSystemPlayerStore(database)
+		store, err := poker.NewFileSystemPlayerStore(database)
 
 		assertNoError(t, err)
 
@@ -88,7 +89,7 @@ func TestFileSystemStore(t *testing.T) {
 			{"Name": "Chris", "Wins": 33}]`)
 		defer cleanDatabase()
 
-		store, err := NewFileSystemPlayerStore(database)
+		store, err := poker.NewFileSystemPlayerStore(database)
 
 		assertNoError(t, err)
 
@@ -103,7 +104,7 @@ func TestFileSystemStore(t *testing.T) {
 		database, cleanDatabase := createTempFile(t, "")
 		defer cleanDatabase()
 
-		_, err := NewFileSystemPlayerStore(database)
+		_, err := poker.NewFileSystemPlayerStore(database)
 
 		assertNoError(t, err)
 	})

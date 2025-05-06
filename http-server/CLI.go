@@ -11,9 +11,10 @@ import (
 
 // CLI helps players through a game of poker.
 type CLI struct {
-	in   *bufio.Scanner
-	out  io.Writer
-	game Game
+	playerStore PlayerStore
+	in          *bufio.Scanner
+	out         io.Writer
+	game        Game
 }
 
 // NewCLI creates a CLI for playing poker.
@@ -45,7 +46,7 @@ func (cli *CLI) PlayPoker() {
 		return
 	}
 
-	cli.game.Start(numberOfPlayers)
+	cli.game.Start(numberOfPlayers, cli.out)
 
 	winnerInput := cli.readLine()
 	winner, err := extractWinner(winnerInput)
